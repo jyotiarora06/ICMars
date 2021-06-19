@@ -3,7 +3,7 @@ using AventStack.ExtentReports;
 using Mars.Pages;
 using Mars.Utilities;
 using NUnit.Framework;
-
+using static Mars.Utilities.CommonMethods;
 
 namespace Mars.Tests
 {
@@ -32,7 +32,7 @@ namespace Mars.Tests
                 Setup(browserName);
                 //Search Page Objects
                 SearchPage searchPageObj = new SearchPage(driver);
-                searchPageObj.SearchSkillsByAllCategories();
+                searchPageObj.SearchSkillsByAllCategories(ExcelLibHelper.ReadData(1, "SearchSkillToAccept"));
 
                 test.Log(Status.Pass, "Search skills by all categories is tested");
                 test.Pass("Test Passed");

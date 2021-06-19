@@ -26,13 +26,13 @@ namespace Mars.Pages
         }
 
         // searching a skill from all categories
-        public void SearchSkillsByAllCategories()
+        public void SearchSkillsByAllCategories(string searchSkill)
         {
             signIn.Login(ExcelLibHelper.ReadData(1, "EmailAddress"), ExcelLibHelper.ReadData(1, "Password"));
             ClickSearchIcon();
-            EnterSearchSkill();
+            EnterSearchSkill(searchSkill);
             ClickEnter();
-            bool isSearchResult = ValidateSearchResult();
+            bool isSearchResult = ValidateSearchResult(searchSkill);
             Assert.IsTrue(isSearchResult);
         }
 
@@ -42,9 +42,9 @@ namespace Mars.Pages
             signIn.Login(ExcelLibHelper.ReadData(1, "EmailAddress"), ExcelLibHelper.ReadData(1, "Password"));
             ClickSearchIcon();
             ClickOnline();
-            EnterSearchSkill();
+            EnterSearchSkill(ExcelLibHelper.ReadData(1, "SearchSkillToAccept"));
             ClickEnter();
-            bool isSearchResult = ValidateSearchResult();
+            bool isSearchResult = ValidateSearchResult(ExcelLibHelper.ReadData(1, "SearchSkillToAccept"));
             Assert.IsTrue(isSearchResult);
         }
         public void ClickSearchIcon()
@@ -53,10 +53,10 @@ namespace Mars.Pages
             SearchIcon.Click();
         }
 
-        public void EnterSearchSkill()
+        public void EnterSearchSkill(string skill)
         {
             //enter skill to search
-            SearchSkillsBox.SendKeys(ExcelLibHelper.ReadData(1, "SearchSkill"));
+            SearchSkillsBox.SendKeys(skill);
         }
 
         public void ClickEnter()
@@ -73,19 +73,19 @@ namespace Mars.Pages
 
         public void ClickSearchedSkill()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='service-search-section']/div[2]/div/section/div/div[2]/div/div[2]/div/div/div/div[1]/a[2]/p", 20);
+            Wait.ElementExists(driver, "XPath", "//*[@id='service-search-section']/div[2]/div/section/div/div[2]/div/div[2]/div/div/div/div[1]/a[2]/p", 50);
 
             //Click search result
             SearchedSkill.Click();
         }
 
 
-        public bool ValidateSearchResult()
+        public bool ValidateSearchResult(string searchSkill)
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='service-search-section']/div[2]/div/section/div/div[2]/div/div[2]/div/div/div/div[1]/a[2]/p", 20);
+            Wait.ElementExists(driver, "XPath", "//*[@id='service-search-section']/div[2]/div/section/div/div[2]/div/div[2]/div/div/div/div[1]/a[2]/p", 100);
 
             //validate search result
-            if (SearchedSkill.Text == ExcelLibHelper.ReadData(1, "SearchSkill"))
+            if (SearchedSkill.Text == searchSkill)
             {
                 return true;
             }

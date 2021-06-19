@@ -3,7 +3,7 @@ using AventStack.ExtentReports;
 using Mars.Pages;
 using Mars.Utilities;
 using NUnit.Framework;
-
+using static Mars.Utilities.CommonMethods;
 
 namespace Mars.Tests
 {
@@ -30,7 +30,7 @@ namespace Mars.Tests
                 Setup(browserName);
                 //ManageRequests Page Objects
                 ManageRequestsPage manageRequestsObj = new ManageRequestsPage(driver);
-                manageRequestsObj.AcceptReceivedRequest();
+                manageRequestsObj.AcceptReceivedRequest(ExcelLibHelper.ReadData(1, "SearchSkillToAccept"));
 
                 test.Log(Status.Pass, "Request is accepted");
                 test.Pass("Test Passed");

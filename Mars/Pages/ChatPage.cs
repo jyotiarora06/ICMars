@@ -28,7 +28,7 @@ namespace Mars.Pages
         //sending message to seller
         public void ChatWithSeller()
         {
-            searchPageObj.SearchSkillsByAllCategories();
+            searchPageObj.SearchSkillsByAllCategories(ExcelLibHelper.ReadData(1, "SearchSkillToAccept"));
             searchPageObj.ClickSearchedSkill();
             serviceDetailPageObj.ValidateYouAreAtServiceDetailPage();
             serviceDetailPageObj.ClickChat();

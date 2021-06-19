@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Mars.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -59,7 +60,8 @@ namespace Mars.Pages
 
         public bool ValidateRequestSent()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 1000);
+            Thread.Sleep(100);
+            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 10);
             //validate request is sent
             if (Message.Text == ExcelLibHelper.ReadData(1, "SentRequestMessage"))
             {
@@ -72,9 +74,9 @@ namespace Mars.Pages
 
         }
 
-        public void SendServiceRequest()
+        public void SendServiceRequest(string skill)
         {
-            searchPageObj.SearchSkillsByAllCategories();
+            searchPageObj.SearchSkillsByAllCategories(skill);
             searchPageObj.ClickSearchedSkill();
             ValidateYouAreAtServiceDetailPage();
             EnterMessageToSeller();
