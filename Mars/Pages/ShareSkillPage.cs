@@ -276,7 +276,7 @@ namespace Mars.Pages
 
         public void SelectActive(string active)
         {
-            if (acive == "Active")
+            if (active == "Active")
             {
                 Active.Click();
             }

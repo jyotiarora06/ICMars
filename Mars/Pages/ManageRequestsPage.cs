@@ -17,7 +17,7 @@ namespace Mars.Pages
         IWebElement ReceivedRequests => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[1]/div/a[1]"));
         IWebElement SentRequestsHeading => driver.FindElement(By.XPath("//*[@id='sent-request-section']/div[2]/h2"));
         IWebElement ReceivedRequestsHeading => driver.FindElement(By.XPath("//*[@id='received-request-section']/div[2]/h2"));
-        IWebElement ActionButton => driver.FindElement(By.XPath("//*[@id='sent-request-section']/div[2]/div[1]/table/tbody/tr/td[8]/button"));
+        IWebElement ActionButton => driver.FindElement(By.XPath("//*[@id='sent-request-section']/div[2]/div[1]/table/tbody/tr[1]/td[8]/button"));
         IWebElement Accept => driver.FindElement(By.XPath("//*[@id='received-request-section']/div[2]/div[1]/table/tbody/tr[1]/td[8]/button[1]"));
         IWebElement Decline => driver.FindElement(By.XPath("//*[@id='received-request-section']/div[2]/div[1]/table/tbody/tr[1]/td[8]/button[2]"));
         IWebElement SentRequestStatus => driver.FindElement(By.XPath("//*[@id='sent-request-section']/div[2]/div[1]/table/tbody/tr[1]/td[5]"));
@@ -141,7 +141,7 @@ namespace Mars.Pages
 
         public void ClickActionButton()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='sent-request-section']/div[2]/div[1]/table/tbody/tr/td[8]/button", 100);
+            Wait.ElementExists(driver, "XPath", "//*[@id='sent-request-section']/div[2]/div[1]/table/tbody/tr[1]/td[8]/button", 100);
             //Click withdraw or complete actions
             ActionButton.Click();
         }
