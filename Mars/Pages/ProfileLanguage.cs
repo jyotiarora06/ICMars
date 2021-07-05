@@ -15,13 +15,12 @@ namespace Mars
 
         //page factory design pattern
 
-        IWebElement AddNew => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/thead/tr/th[3]/div"));
-        IWebElement Language => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[1]/input"));
-        IWebElement LanguageLevel => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[2]/select/option[2]"));
-        IWebElement Add => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/div/div[3]/input[1]"));
-        IWebElement AddedLanguage => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[1]"));
-        IWebElement Message => driver.FindElement(By.XPath("/html/body/div[1]/div"));
-        //IWebElement RemoveLanguage => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[3]/span[2]/i"));
+        IWebElement AddNew => driver.FindElement(By.XPath("//th[3]//div[@class='ui teal button ' and contains(text(),'Add New')]"));
+        IWebElement Language => driver.FindElement(By.XPath("//input[@name='name' and @placeholder='Add Language']"));
+        IWebElement LanguageLevel => driver.FindElement(By.XPath("//option[@value='Basic']"));
+        IWebElement Add => driver.FindElement(By.XPath("//input[@class='ui teal button' and @value='Add']"));
+        IWebElement AddedLanguage => driver.FindElement(By.XPath("//td[contains(text(),'English')]"));
+        IWebElement Message => driver.FindElement(By.XPath("//div[contains(text(),'English has been added to your languages')]"));
         
 
         //Create a Constructor
@@ -82,7 +81,7 @@ namespace Mars
 
         public bool ValidateLanguageSavedMessage()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 1000);
+            Wait.ElementExists(driver, "XPath", "//div[contains(text(),'English has been added to your languages')]", 100);
 
             if (Message.Text == ExcelLibHelper.ReadData(1, "LanguageMessage"))
             {
@@ -98,7 +97,7 @@ namespace Mars
 
         public bool ValidateAddedLanguage()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr/td[1]", 30);
+            Wait.ElementExists(driver, "XPath", "//td[contains(text(),'English')]", 30);
 
             //validate language is added
             if (AddedLanguage.Text == ExcelLibHelper.ReadData(1, "Language"))

@@ -14,12 +14,12 @@ namespace Mars
 
         //page factory design pattern
 
-        IWebElement DescriptionText => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/h3"));
-        IWebElement DescriptionIcon => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/h3/span/i"));
-        IWebElement DescriptionTextBox => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/div[1]/textarea"));
-        IWebElement Save => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/form/div/div/div[2]/button"));
-        IWebElement SavedDescription => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/span"));
-        IWebElement Message => driver.FindElement(By.XPath("/html/body/div[1]/div"));
+        IWebElement DescriptionText => driver.FindElement(By.XPath("//h3[(text()='Description')]"));
+        IWebElement DescriptionIcon => driver.FindElement(By.XPath("//h3[text()='Description']//i[@class='outline write icon']"));
+        IWebElement DescriptionTextBox => driver.FindElement(By.XPath("//textarea[@name='value']"));
+        IWebElement Save => driver.FindElement(By.XPath("//button[text()='Save' and @type='button']"));
+        IWebElement SavedDescription => driver.FindElement(By.XPath("//span[contains(text(),'I like playing drums')]"));
+        IWebElement Message => driver.FindElement(By.XPath("//div[contains(text(),'Description has been saved successfully')]"));
         
         //Create a Constructor
         public ProfileDescription(IWebDriver driver)
@@ -44,7 +44,7 @@ namespace Mars
 
         public void ValidateProfilePage()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/h3", 20);
+            Wait.ElementExists(driver, "XPath", "//h3[(text()='Description')]", 20);
             bool isProfilePage = DescriptionText.Displayed;
             Assert.IsTrue(isProfilePage);
         }
@@ -71,7 +71,7 @@ namespace Mars
 
         public bool ValidateDescriptionSavedMessage()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 1000);
+            Wait.ElementExists(driver, "XPath", "//div[contains(text(),'Description has been saved successfully')]", 50);
 
             if (Message.Text == ExcelLibHelper.ReadData(1, "DescriptionMessage"))
             {
@@ -87,7 +87,7 @@ namespace Mars
 
         public bool ValidateSavedDescription()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/div/div/div/span", 500);
+            Wait.ElementExists(driver, "XPath", "//span[contains(text(),'I like playing drums')]", 50);
 
             //validate description is saved
             if (SavedDescription.Text == ExcelLibHelper.ReadData(1, "ProfileDescription"))

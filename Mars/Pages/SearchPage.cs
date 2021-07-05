@@ -13,10 +13,11 @@ namespace Mars.Pages
 
 
         //page factory design pattern
-        IWebElement SearchIcon => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/div[1]/div[1]/i"));
-        IWebElement SearchSkillsBox => driver.FindElement(By.XPath("//*[@id='service-search-section']/div[2]/div/section/div/div[1]/div[2]/input"));
-        IWebElement SearchedSkill => driver.FindElement(By.XPath("//*[@id='service-search-section']/div[2]/div/section/div/div[2]/div/div[2]/div/div/div/div[1]/a[2]/p"));
-        IWebElement Online => driver.FindElement(By.XPath("//*[@id='service-search-section']/div[2]/div/section/div/div[1]/div[5]/button[1]"));
+        IWebElement SearchIcon => driver.FindElement(By.XPath("//i[@class='search link icon']"));
+        IWebElement SearchSkillsBox => driver.FindElement(By.XPath("//section[@class='search-results']//input[@type='text'and @placeholder='Search skills']"));
+        IWebElement SearchedSkill => driver.FindElement(By.XPath("//p[@class='row-padded']"));
+                                                                                                   
+        IWebElement Online => driver.FindElement(By.XPath("//button[contains(text(),'Online')]"));
 
         //Create a Constructor
         public SearchPage(IWebDriver driver)
@@ -73,7 +74,7 @@ namespace Mars.Pages
 
         public void ClickSearchedSkill()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='service-search-section']/div[2]/div/section/div/div[2]/div/div[2]/div/div/div/div[1]/a[2]/p", 50);
+            Wait.ElementExists(driver, "XPath", "//p[@class='row-padded']", 50);
 
             //Click search result
             SearchedSkill.Click();
@@ -82,7 +83,7 @@ namespace Mars.Pages
 
         public bool ValidateSearchResult(string searchSkill)
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='service-search-section']/div[2]/div/section/div/div[2]/div/div[2]/div/div/div/div[1]/a[2]/p", 100);
+            Wait.ElementExists(driver, "XPath", "//p[@class='row-padded']", 100);
 
             //validate search result
             if (SearchedSkill.Text == searchSkill)

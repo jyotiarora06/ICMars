@@ -21,37 +21,37 @@ namespace Mars.Pages
 
 
         //page factory design pattern
-        IWebElement ShareSkill => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[1]/div/div[2]/a"));
-        IWebElement Title => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input"));
-        IWebElement Description => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[2]/div/div[2]/div[1]/textarea"));
-        IWebElement GraphicsDesign => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[2]"));
-        IWebElement DigitalMarketing => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[3]"));
-        IWebElement WritingTranslation => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[4]"));
-        IWebElement VideoAnimation => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[5]"));
-        IWebElement MusicAudio => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[6]"));
-        IWebElement ProgrammingTech => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[7]"));
-        IWebElement Business => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[8]"));
-        IWebElement FunLifestyle => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[1]/select/option[9]"));
-        IWebElement Subcategory => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[3]/div[2]/div/div[2]/div[1]/select/option[2]"));
-        IWebElement Tags => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[4]/div[2]/div/div/div/div/input"));
-        IWebElement HourlyBasisService => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[5]/div[2]/div[1]/div[1]/div/input"));
-        IWebElement OneOffService => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[5]/div[2]/div[1]/div[2]/div/input"));
-        IWebElement Onsite => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[6]/div[2]/div/div[1]/div/input"));
-        IWebElement Online => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[6]/div[2]/div/div[2]/div/input"));
-        IWebElement StartDate => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input"));
-        IWebElement EndDate => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[7]/div[2]/div/div[1]/div[4]/input"));
-        IWebElement SkillExchange => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[2]/div/div[1]/div/input"));
-        IWebElement Credit => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[2]/div/div[2]/div/input"));
-        IWebElement CreditServiceCharge => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[4]/div/div/input"));
-        IWebElement SkillExchangeTag => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input"));
-        IWebElement Active => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[10]/div[2]/div/div[1]/div/input"));
-        IWebElement Hidden => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[10]/div[2]/div/div[2]/div/input"));
-        IWebElement Save => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[11]/div/input[1]"));
-        IWebElement Cancel => driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[11]/div/input[2]"));
-        IWebElement SavedTitle => driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]"));
-        IWebElement SavedDescription => driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[4]"));
-        IWebElement SavedCategory => driver.FindElement(By.XPath("//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]"));
-        IWebElement FileInput => driver.FindElement(By.XPath("//*[@id='selectFile']"));
+        IWebElement ShareSkill => driver.FindElement(By.XPath("//a[text()='Share Skill']"));
+        IWebElement Title => driver.FindElement(By.XPath("//input[@name='title']"));
+        IWebElement Description => driver.FindElement(By.XPath("//textarea[@name='description']"));
+        IWebElement GraphicsDesign => driver.FindElement(By.XPath("//select[@name='categoryId']//option[@value='1']"));
+        IWebElement DigitalMarketing => driver.FindElement(By.XPath("//select[@name='categoryId']//option[@value='2']"));
+        IWebElement WritingTranslation => driver.FindElement(By.XPath("//select[@name='categoryId']//option[@value='3']"));
+        IWebElement VideoAnimation => driver.FindElement(By.XPath("//select[@name='categoryId']//option[@value='4']"));
+        IWebElement MusicAudio => driver.FindElement(By.XPath("//select[@name='categoryId']//option[@value='5']"));
+        IWebElement ProgrammingTech => driver.FindElement(By.XPath("//select[@name='categoryId']//option[@value='6']"));
+        IWebElement Business => driver.FindElement(By.XPath("//select[@name='categoryId']//option[@value='7']"));
+        IWebElement FunLifestyle => driver.FindElement(By.XPath("//select[@name='categoryId']//option[@value='8']"));
+        IWebElement Subcategory => driver.FindElement(By.XPath("//select[@name='subcategoryId']//option[@value='1']"));
+        IWebElement Tags => driver.FindElement(By.XPath("//div[4]//div[2]//input[@class='ReactTags__tagInputField']"));
+        IWebElement HourlyBasisService => driver.FindElement(By.XPath("//input[@name='serviceType' and @value='0']"));
+        IWebElement OneOffService => driver.FindElement(By.XPath("//input[@name='serviceType' and @value='1']"));
+        IWebElement Onsite => driver.FindElement(By.XPath("//input[@name='locationType' and @value='0']"));
+        IWebElement Online => driver.FindElement(By.XPath("//input[@name='locationType' and @value='1']"));
+        IWebElement StartDate => driver.FindElement(By.XPath("//input[@name='startDate']"));
+        IWebElement EndDate => driver.FindElement(By.XPath("//input[@name='endDate']"));
+        IWebElement SkillExchange => driver.FindElement(By.XPath("//label[text()='Skill-exchange']//parent::div[@class='ui radio checkbox']//preceding-sibling::input[@name='skillTrades']"));
+        IWebElement Credit => driver.FindElement(By.XPath("//label[text()='Credit']//parent::div[@class='ui radio checkbox']//preceding-sibling::input[@name='skillTrades']"));
+        IWebElement CreditServiceCharge => driver.FindElement(By.XPath("//input[@name='charge']"));
+        IWebElement SkillExchangeTag => driver.FindElement(By.XPath("//div[8]//div[4]//input[@class='ReactTags__tagInputField']"));
+        IWebElement Active => driver.FindElement(By.XPath("//label[text()='Active']//parent::div[@class='ui radio checkbox']//preceding-sibling::input[@name='isActive']"));
+        IWebElement Hidden => driver.FindElement(By.XPath("//label[text()='Hidden']//parent::div[@class='ui radio checkbox']//preceding-sibling::input[@name='isActive']"));
+        IWebElement Save => driver.FindElement(By.XPath("//input[@value='Save']"));
+        IWebElement Cancel => driver.FindElement(By.XPath("//input[@value='Cancel']"));
+        IWebElement SavedTitle => driver.FindElement(By.XPath("//tr[1]//td[text()='Skill1']"));
+        IWebElement SavedDescription => driver.FindElement(By.XPath("//tr[1]//td[text()='Test Skill1 Sharing']"));
+        IWebElement SavedCategory => driver.FindElement(By.XPath("//tr[1]//td[text()='Business']"));
+        IWebElement FileInput => driver.FindElement(By.XPath("//input[@id='selectFile']"));
         
         //reading data from file
         private string title = ExcelLibHelper.ReadData(1, "Title");
@@ -61,7 +61,7 @@ namespace Mars.Pages
         private string serviceType = ExcelLibHelper.ReadData(1, "ServiceType");
         private string locationType = ExcelLibHelper.ReadData(1, "LocationType");
         private string skillTrade = ExcelLibHelper.ReadData(1, "SkillTrade");
-        private string acive = ExcelLibHelper.ReadData(1, "Active");
+        private string active = ExcelLibHelper.ReadData(1, "Active");
         private string skillExchangeTag = ExcelLibHelper.ReadData(1, "SkillExchangeTag");
         private string creditServiceCharge = ExcelLibHelper.ReadData(1, "CreditServiceCharge");
         private int addDaysToStartDate = Convert.ToInt32(ExcelLibHelper.ReadData(1, "AddDaysInCurrentDateToStart"));
@@ -85,16 +85,16 @@ namespace Mars.Pages
             EnterStartDate(addDaysToStartDate);
             EnterEndDate(addDaysToStartDate,addDaysToEndDate);
             SelectSkillTrade(skillTrade, skillExchangeTag, creditServiceCharge);
-            UploadWorkSamples();
-            SelectActive(acive);
+            //UploadWorkSamples();
+            SelectActive(active);
             ClickSave();
             bool isServiceSaved =ValidateServiceSavedSuccessfully();
-            
+            Assert.IsTrue(isServiceSaved);
         }
 
         public void ClickShareSkill()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[1]/div/div[2]/a", 500);
+            Wait.ElementExists(driver, "XPath", "//a[text()='Share Skill']", 50);
             //click Share Skill 
             ShareSkill.Click();
 
@@ -102,7 +102,7 @@ namespace Mars.Pages
 
         public void ValidateYouAreAtShareSkillPage()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='service-listing-section']/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input", 200);
+            Wait.ElementExists(driver, "XPath", "//input[@value='Save']", 20);
             bool isShareSkillPage = Save.Displayed;
             Assert.IsTrue(isShareSkillPage);
         }
@@ -172,7 +172,7 @@ namespace Mars.Pages
         {
             try
             {
-                driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[4]/div[2]/div/div/div/span/a"));
+                driver.FindElement(By.XPath("//div[4]//div[2]//a[@class='ReactTags__remove']"));
             }
             catch (NoSuchElementException)
             {
@@ -186,7 +186,7 @@ namespace Mars.Pages
             bool isRemoveTag = ExistsElement();
             if (isRemoveTag == true)
             {
-                driver.FindElement(By.XPath("//*[@id='service-listing-section']/div[2]/div/form/div[4]/div[2]/div/div/div/span/a")).Click();
+                driver.FindElement(By.XPath("//div[4]//div[2]//a[@class='ReactTags__remove']")).Click();
                 Tags.SendKeys(tags);
                 Tags.SendKeys(Keys.Enter);
             }
@@ -300,7 +300,7 @@ namespace Mars.Pages
 
         public bool ValidateServiceSavedSuccessfully()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='listing-management-section']/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]", 10);
+            Wait.ElementExists(driver, "XPath", "//tr[1]//td[text()='Skill1']", 50);
             if (SavedTitle.Text == title && SavedDescription.Text ==  description && SavedCategory.Text == category)
             {
                 //Assert.Pass("user is able to create Service successfully, test passed");

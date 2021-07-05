@@ -15,16 +15,16 @@ namespace Mars
 
         //page factory design pattern
 
-        IWebElement AddNew => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/thead/tr/th[6]/div"));
-        IWebElement College => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[1]/div[1]/input"));
-        IWebElement Country => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[1]/div[2]/select/option[11]"));
-        IWebElement Title => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[2]/div[1]/select/option[8]"));
-        IWebElement Degree => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[2]/div[2]/input"));
-        IWebElement Year => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[2]/div[3]/select/option[8]"));
-        IWebElement Add => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/div/div[3]/div/input[1]"));
-        IWebElement AddedDegree => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[4]"));
-        IWebElement Message => driver.FindElement(By.XPath("/html/body/div[1]/div"));
-        IWebElement EducationTab => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[3]"));
+        IWebElement AddNew => driver.FindElement(By.XPath("//th[6]//div[@class='ui teal button ' and contains(text(),'Add New')]"));
+        IWebElement College => driver.FindElement(By.XPath("//input[@name='instituteName']"));
+        IWebElement Country => driver.FindElement(By.XPath("//option[@value='Australia']"));
+        IWebElement Title => driver.FindElement(By.XPath("//option[@value='M.Tech']"));
+        IWebElement Degree => driver.FindElement(By.XPath("//input[@name='degree']"));
+        IWebElement Year => driver.FindElement(By.XPath("//select[@name='yearOfGraduation']//option[@value='2015']"));
+        IWebElement Add => driver.FindElement(By.XPath("//div[@class='sixteen wide field']//input[@class='ui teal button ' and @value='Add']"));
+        IWebElement AddedDegree => driver.FindElement(By.XPath("//td[contains(text(),'Computers')]"));
+        IWebElement Message => driver.FindElement(By.XPath("//div[contains(text(),'Education has been added')]"));
+        IWebElement EducationTab => driver.FindElement(By.XPath("//a[text()='Education']"));
 
 
         //Create a Constructor
@@ -104,7 +104,7 @@ namespace Mars
 
         public bool ValidateEducationSavedMessage()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 30);
+            Wait.ElementExists(driver, "XPath", "//div[contains(text(),'Education has been added')]", 30);
 
             if (Message.Text == ExcelLibHelper.ReadData(1, "EducationMessage"))
             {
@@ -120,7 +120,7 @@ namespace Mars
 
         public bool ValidateAddedEducation()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[4]/div/div[2]/div/table/tbody/tr/td[4]", 30);
+            Wait.ElementExists(driver, "XPath", "//td[contains(text(),'Computers')]", 30);
 
             //validate Education is added
             if (AddedDegree.Text == ExcelLibHelper.ReadData(1, "Degree"))

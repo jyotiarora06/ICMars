@@ -15,14 +15,14 @@ namespace Mars
 
         //page factory design pattern
 
-        IWebElement AddNew => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/thead/tr/th[4]/div"));                                                                                    
-        IWebElement Certificate => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[1]/div/input"));
-        IWebElement CertifiedFrom => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[2]/div[1]/input"));
-        IWebElement Year => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[2]/div[2]/select/option[13]"));
-        IWebElement Add => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/div/div[3]/input[1]"));
-        IWebElement AddedCertificate => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[1]"));
-        IWebElement Message => driver.FindElement(By.XPath("/html/body/div[1]/div"));
-        IWebElement CertificationsTab => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[4]"));
+        IWebElement AddNew => driver.FindElement(By.XPath("//th[4]//div[@class='ui teal button ' and contains(text(),'Add New')]"));                                                                                    
+        IWebElement Certificate => driver.FindElement(By.XPath("//input[@name='certificationName']"));
+        IWebElement CertifiedFrom => driver.FindElement(By.XPath("//input[@name='certificationFrom']"));
+        IWebElement Year => driver.FindElement(By.XPath("//select[@name='certificationYear']//option[@value='2016']"));
+        IWebElement Add => driver.FindElement(By.XPath("//div[@class='five wide field']//input[@class='ui teal button ' and @value='Add']"));
+        IWebElement AddedCertificate => driver.FindElement(By.XPath("//td[text()='abc']"));
+        IWebElement Message => driver.FindElement(By.XPath("//div[contains(text(),'abc has been added to your certification')]"));
+        IWebElement CertificationsTab => driver.FindElement(By.XPath("//a[text()='Certifications']"));
 
 
         //Create a Constructor
@@ -89,7 +89,7 @@ namespace Mars
 
         public bool ValidateCertificateSavedMessage()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 1000);
+            Wait.ElementExists(driver, "XPath", "//div[contains(text(),'abc has been added to your certification')]", 50);
 
             if (Message.Text == ExcelLibHelper.ReadData(1, "CertificateMessage"))
             {
@@ -105,7 +105,7 @@ namespace Mars
 
         public bool ValidateAddedCertificate()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[5]/div[1]/div[2]/div/table/tbody/tr/td[1]", 30);
+            Wait.ElementExists(driver, "XPath", "//td[text()='abc']", 30);
 
             //validate Certificate is added
             if (AddedCertificate.Text == ExcelLibHelper.ReadData(1, "Certificate"))

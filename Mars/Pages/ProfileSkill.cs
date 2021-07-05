@@ -14,15 +14,14 @@ namespace Mars
         private ProfileDescription profileDescription;
 
         //page factory design pattern
-        IWebElement AddNew => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div"));
-        IWebElement Add => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/span/input[1]"));
-        IWebElement SkillsTab => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[1]/a[2]"));
-        IWebElement Skill => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/div[1]/input"));
-        IWebElement SkillLevel => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/div/div[2]/select/option[2]"));
-        IWebElement AddedSkill => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[1]"));
-        IWebElement Message => driver.FindElement(By.XPath("/html/body/div[1]/div"));
-        //IWebElement RemoveSkill => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[3]/span[2]/i"));
-
+        IWebElement AddNew => driver.FindElement(By.XPath("//th[3]//div[@class='ui teal button' and contains(text(),'Add New')]"));
+        IWebElement Add => driver.FindElement(By.XPath("//span[@class='buttons-wrapper']//input[@class='ui teal button ' and @value='Add']"));
+        IWebElement SkillsTab => driver.FindElement(By.XPath("//a[text()='Skills']"));
+        IWebElement Skill => driver.FindElement(By.XPath("//input[@name='name' and @placeholder='Add Skill']"));
+        IWebElement SkillLevel => driver.FindElement(By.XPath("//option[@value='Beginner']"));
+        IWebElement AddedSkill => driver.FindElement(By.XPath("//td[contains(text(),'Drums')]"));
+        IWebElement Message => driver.FindElement(By.XPath("//div[contains(text(),'Drums has been added to your skills')]"));
+        
         //Create a Constructor
         public ProfileSkill(IWebDriver driver)
         {
@@ -72,7 +71,7 @@ namespace Mars
         {
             //click skills tab
             SkillsTab.Click();
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div", 10);
+            //Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/thead/tr/th[3]/div", 10);
         }
 
         public void EnterSkill()
@@ -90,7 +89,7 @@ namespace Mars
 
         public bool ValidateSkillSavedMessage()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 40);
+            Wait.ElementExists(driver, "XPath", "//div[contains(text(),'Drums has been added to your skills')]", 40);
 
             if (Message.Text == ExcelLibHelper.ReadData(1, "SkillMessage"))
             {
@@ -106,7 +105,7 @@ namespace Mars
 
         public bool ValidateAddedSkill()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr/td[1]", 30);
+            Wait.ElementExists(driver, "XPath", "//td[contains(text(),'Drums')]", 30);
 
             //validate skill is added
             if (AddedSkill.Text == ExcelLibHelper.ReadData(1, "Skill"))

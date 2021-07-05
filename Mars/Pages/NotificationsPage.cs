@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Mars.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -13,17 +14,20 @@ namespace Mars.Pages
 
 
         //page factory design pattern
-        IWebElement Message => driver.FindElement(By.XPath("/html/body/div/div"));
-        IWebElement Dashboard => driver.FindElement(By.XPath("/html/body/div/div/section[1]/div/a[1]"));
-        IWebElement NotificationsText => driver.FindElement(By.XPath("//*[@id='notification-section']/div[2]/div/div/div[3]/div[2]/a/h1"));
-        IWebElement LoadMore => driver.FindElement(By.XPath("//*[@id='notification-section']/div[2]/div/div/div[3]/div[2]/span/span/div/div[6]/div/center/a"));
-        IWebElement ShowLess => driver.FindElement(By.XPath("//*[@id='notification-section']/div[2]/div/div/div[3]/div[2]/span/span/div/div/div[1]/center/a"));
-        IWebElement NotificationCheckBox => driver.FindElement(By.XPath("//*[@id='notification-section']/div[2]/div/div/div[3]/div[2]/span/span/div/div[1]/div/div/div[3]/input"));
-        IWebElement SelectAll => driver.FindElement(By.XPath("//*[@id='notification-section']/div[2]/div/div/div[3]/div[1]/div[1]"));
-        IWebElement UnselectAll => driver.FindElement(By.XPath("//*[@id='notification-section']/div[2]/div/div/div[3]/div[1]/div[2]"));
-        IWebElement DeleteSelection => driver.FindElement(By.XPath("//*[@id='notification-section']/div[2]/div/div/div[3]/div[1]/div[3]"));
-        IWebElement MarkSelectionAsRead => driver.FindElement(By.XPath("//*[@id='notification-section']/div[2]/div/div/div[3]/div[1]/div[4]"));
+        IWebElement Message => driver.FindElement(By.XPath("//div[contains(text(),'Notification updated')]"));
+        IWebElement Dashboard => driver.FindElement(By.XPath("//a[contains(text(),'Dashboard')]"));
+        IWebElement NotificationsText => driver.FindElement(By.XPath("//h1[contains(text(),'Notifications')]"));
+        IWebElement LoadMore => driver.FindElement(By.XPath("//a[contains(text(),'Load More...')]"));
+        IWebElement ShowLess => driver.FindElement(By.XPath("//a[contains(text(),'...Show Less')]"));
+        IWebElement NotificationCheckBox => driver.FindElement(By.XPath("//input[@type='checkbox' and @value='0']"));
+        IWebElement SelectAll => driver.FindElement(By.XPath("//div[@data-tooltip='Select all']"));
+        IWebElement UnselectAll => driver.FindElement(By.XPath("//div[@data-tooltip='Unselect all']"));
+        IWebElement DeleteSelection => driver.FindElement(By.XPath("//div[@data-tooltip='Delete selection']"));
+        IWebElement MarkSelectionAsRead => driver.FindElement(By.XPath("//div[@data-tooltip='Mark selection as read']"));
+
         
+            
+
         //Create a Constructor
         public NotificationsPage(IWebDriver driver)
         {
@@ -44,7 +48,7 @@ namespace Mars.Pages
             ClickSelectAll();
             ClickUnselectAll();
             ClickMarkSelectionAsRead();
-            bool isNotificationMarked = ValidateMessage(ExcelLibHelper.ReadData(1, "NotificationMessage"));
+            bool isNotificationMarked = ValidateNotificationMarked();
             Assert.IsTrue(isNotificationMarked);
             ClickDeleteSelection();
             bool isNotificationDeleted = ValidateMessage(ExcelLibHelper.ReadData(1, "NotificationMessage"));
@@ -54,20 +58,22 @@ namespace Mars.Pages
 
         public void ClickDashboard()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div/div/section[1]/div/a[1]", 10);
+            Wait.ElementExists(driver, "XPath", "//a[contains(text(),'Dashboard')]", 10);
             //click dashboard
             Dashboard.Click();
         }
 
         public void ClickLoadMore()
         {
-           //load more notifications
+            Wait.ElementExists(driver, "XPath", "//a[contains(text(),'Load More...')]", 30);
+
+            //load more notifications
             LoadMore.Click();
         }
 
         public void ClickShowLess()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='notification-section']/div[2]/div/div/div[3]/div[2]/span/span/div/div/div[1]/center/a", 20);
+            Wait.ElementExists(driver, "XPath", "//a[contains(text(),'...Show Less')]", 20);
             //show less notifications
             ShowLess.Click();
         }
@@ -106,8 +112,15 @@ namespace Mars.Pages
         //mark selected notification as read
         public void ClickMarkSelectionAsRead()
         {
+            Wait.ElementExists(driver, "XPath", "//input[@type='checkbox' and @value='0']//parent::div//preceding-sibling::div[@class='fourteen wide column']", 20);
+                                              
+            string fontWeight = driver.FindElement(By.XPath("//input[@type='checkbox' and @value='0']//parent::div//preceding-sibling::div[@class='fourteen wide column']")).GetCssValue("font-weight");
+            Assert.AreEqual("700", fontWeight);
+
             SelectNotification();
             MarkSelectionAsRead.Click();
+            Thread.Sleep(200);
+
         }
 
         //deleting selected notification
@@ -119,14 +132,32 @@ namespace Mars.Pages
 
         public void ValidateYouAreAtNotificationPage()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='notification-section']/div[2]/div/div/div[3]/div[2]/a/h1", 20);
+            Wait.ElementExists(driver, "XPath", "//h1[contains(text(),'Notifications')]", 20);
             bool isNotificationPage = NotificationsText.Displayed;
             Assert.IsTrue(isNotificationPage);
         }
 
+        public bool ValidateNotificationMarked()
+        {
+            Wait.ElementExists(driver, "XPath", "//a[contains(text(),'Load More...')]", 50);
+
+            string fontWeight = driver.FindElement(By.XPath("//input[@type='checkbox' and @value='0']//parent::div//preceding-sibling::div[@class='fourteen wide column']")).GetCssValue("font-weight");
+
+            //validate notification is marked
+            if (fontWeight == "400")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         public bool ValidateMessage(string message)
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div/div", 100);
+            Wait.ElementExists(driver, "XPath", "//div[contains(text(),'Notification updated')]", 200);
             //validate notification is updated
             if (Message.Text == message)
             {

@@ -12,15 +12,15 @@ namespace Mars.Pages
         
 
         //page factory design pattern
-        IWebElement Join => driver.FindElement(By.XPath("//*[@id='home']/div/div/div[1]/div/button"));
-        IWebElement FirstName => driver.FindElement(By.XPath("/html/body/div[2]/div/div/form/div[1]/input"));
-        IWebElement LastName => driver.FindElement(By.XPath("/html/body/div[2]/div/div/form/div[2]/input"));
-        IWebElement EmailAddress => driver.FindElement(By.XPath("/html/body/div[2]/div/div/form/div[3]/input"));
-        IWebElement Password => driver.FindElement(By.XPath("/html/body/div[2]/div/div/form/div[4]/input"));
-        IWebElement ConfirmPassword => driver.FindElement(By.XPath("/html/body/div[2]/div/div/form/div[5]/input"));
-        IWebElement AgreeTerms => driver.FindElement(By.XPath("/html/body/div[2]/div/div/form/div[6]/div/div/input"));
-        IWebElement JoinButton => driver.FindElement(By.XPath("//*[@id='submit-btn']"));
-        IWebElement Message => driver.FindElement(By.XPath("/html/body/div[1]/div"));
+        IWebElement Join => driver.FindElement(By.XPath("//button[contains(text(),'Join')]"));
+        IWebElement FirstName => driver.FindElement(By.XPath("//input[@name='firstName']"));
+        IWebElement LastName => driver.FindElement(By.XPath("//input[@name='lastName']"));
+        IWebElement EmailAddress => driver.FindElement(By.XPath("//input[@name='email']"));
+        IWebElement Password => driver.FindElement(By.XPath("//input[@name='password']"));
+        IWebElement ConfirmPassword => driver.FindElement(By.XPath("//input[@name='confirmPassword']"));
+        IWebElement AgreeTerms => driver.FindElement(By.XPath("//input[@name='terms']"));
+        IWebElement JoinButton => driver.FindElement(By.XPath("//div[@id='submit-btn']"));
+        IWebElement Message => driver.FindElement(By.XPath("//div[contains(text(),'Registration successful')]"));
 
 
 
@@ -34,7 +34,7 @@ namespace Mars.Pages
 
         public void ClickJoin()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='home']/div/div/div[1]/div/button", 10);
+            Wait.ElementExists(driver, "XPath", "//button[contains(text(),'Join')]", 10);
             //click join
             Join.Click();
 
@@ -87,7 +87,7 @@ namespace Mars.Pages
         }
         public bool ValidateSuccessMessage()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 10000);
+            Wait.ElementExists(driver, "XPath", "//div[contains(text(),'Registration successful')]", 100);
             // validate registration message
             if (Message.Text == ExcelLibHelper.ReadData(1, "RegistrationMessage"))
             {

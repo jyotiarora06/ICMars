@@ -13,9 +13,9 @@ namespace Mars.Pages
         private readonly ServiceDetailPage serviceDetailPageObj;
 
         //page factory design pattern
-        IWebElement ChatTextBox => driver.FindElement(By.XPath("//*[@id='chatTextBox']"));
-        IWebElement Send => driver.FindElement(By.XPath("//*[@id='btnSend']"));
-        IWebElement SentMessage => driver.FindElement(By.XPath("//*[text()='Hello I want to exchange my skill']"));
+        IWebElement ChatTextBox => driver.FindElement(By.XPath("//input[@id ='chatTextBox']"));
+        IWebElement Send => driver.FindElement(By.XPath("//button[@id='btnSend']"));
+        IWebElement SentMessage => driver.FindElement(By.XPath("//span[text()='Testing skill exchange']"));
 
         //Create a Constructor
         public ChatPage(IWebDriver driver)
@@ -53,14 +53,14 @@ namespace Mars.Pages
 
         public void ValidateYouAreInChatRoom()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='chatTextBox']", 10);
+            Wait.ElementExists(driver, "XPath", "//input[@id ='chatTextBox']", 10);
             bool isChatRoom = ChatTextBox.Displayed;
             Assert.IsTrue(isChatRoom);
         }
 
         public bool ValidateMessageSent()
         {
-            Wait.ElementExists(driver, "XPath", "//*[text()='Hello I want to exchange my skill']", 200);
+            Wait.ElementExists(driver, "XPath", "//span[text()='Testing skill exchange']", 50);
             //validate message is sent to seller
             if (SentMessage.Text == ExcelLibHelper.ReadData(1, "ChatMessage"))
             {

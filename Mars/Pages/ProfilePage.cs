@@ -14,18 +14,18 @@ namespace Mars.Pages
 
         //page factory design pattern
 
-        IWebElement AvailabilityIcon => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/i"));                                                                                          
-        IWebElement PartTime => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/select/option[2]"));
-        IWebElement FullTime => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[2]/div/span/select/option[3]"));
-        IWebElement HoursIcon => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/i"));
-        IWebElement LessThan30Hours => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select/option[2]"));
-        IWebElement MoreThan30Hours => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select/option[3]"));
-        IWebElement AsNeeded => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[3]/div/span/select/option[4]"));
-        IWebElement EarnTargetIcon => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/i"));
-        IWebElement LessThan500 => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/select/option[2]"));
-        IWebElement Between500And1000 => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/select/option[3]"));
-        IWebElement MoreThan1000 => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[2]/div/div/div/div/div/div[3]/div/div[4]/div/span/select/option[4]"));
-        IWebElement Message => driver.FindElement(By.XPath("/html/body/div[1]/div"));
+        IWebElement AvailabilityIcon => driver.FindElement(By.XPath("//strong[text()='Availability']//parent::span//following-sibling::div//i[@class='right floated outline small write icon']"));                                                                                          
+        IWebElement PartTime => driver.FindElement(By.XPath("//select[@name='availabiltyType']//option[@value='0']"));
+        IWebElement FullTime => driver.FindElement(By.XPath("//select[@name='availabiltyType']//option[@value='1']"));
+        IWebElement HoursIcon => driver.FindElement(By.XPath("//strong[text()='Hours']//parent::span//following-sibling::div//i[@class='right floated outline small write icon']"));
+        IWebElement LessThan30Hours => driver.FindElement(By.XPath("//select[@name='availabiltyHour']//option[@value='0']"));
+        IWebElement MoreThan30Hours => driver.FindElement(By.XPath("//select[@name='availabiltyHour']//option[@value='1']"));
+        IWebElement AsNeeded => driver.FindElement(By.XPath("//select[@name='availabiltyHour']//option[@value='2']"));
+        IWebElement EarnTargetIcon => driver.FindElement(By.XPath("//strong[text()='Earn Target']//parent::span//following-sibling::div//i[@class='right floated outline small write icon']"));
+        IWebElement LessThan500 => driver.FindElement(By.XPath("//select[@name='availabiltyTarget']//option[@value='0']"));
+        IWebElement Between500And1000 => driver.FindElement(By.XPath("//select[@name='availabiltyTarget']//option[@value='1']"));
+        IWebElement MoreThan1000 => driver.FindElement(By.XPath("//select[@name='availabiltyTarget']//option[@value='2']"));
+        IWebElement Message => driver.FindElement(By.XPath("//div[contains(text(),'Availability updated')]"));
 
         //Create a Constructor
         public ProfilePage(IWebDriver driver)
@@ -42,7 +42,7 @@ namespace Mars.Pages
             profileDescription.ValidateProfilePage();
             ClickAvailability();
             SelectAvailability();
-            bool isAvailability = ValidateSuccessMessage(ExcelLibHelper.ReadData(1, "AvailabilityMessage"));
+            bool isAvailability = ValidateSuccessMessage();
             Assert.IsTrue(isAvailability);
         }
 
@@ -53,7 +53,7 @@ namespace Mars.Pages
             profileDescription.ValidateProfilePage();
             ClickHours();
             SelectHours(ExcelLibHelper.ReadData(1, "Hours"));
-            bool isHours = ValidateSuccessMessage(ExcelLibHelper.ReadData(1, "HoursMessage"));
+            bool isHours = ValidateSuccessMessage();
             Assert.IsTrue(isHours);
         }
 
@@ -64,7 +64,7 @@ namespace Mars.Pages
             profileDescription.ValidateProfilePage();
             ClickEarnTarget();
             SelectEarnTarget(ExcelLibHelper.ReadData(1, "EarnTarget"));
-            bool isEarnTarget = ValidateSuccessMessage(ExcelLibHelper.ReadData(1, "EarnTargetMessage"));
+            bool isEarnTarget = ValidateSuccessMessage();
             Assert.IsTrue(isEarnTarget);
         }
 
@@ -141,12 +141,12 @@ namespace Mars.Pages
             }
         }
 
-        public bool ValidateSuccessMessage(string message)
+        public bool ValidateSuccessMessage()
 
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[1]/div", 10);
+            Wait.ElementExists(driver, "XPath", "//div[contains(text(),'Availability updated')]", 10);
             //validate updation message
-            if (Message.Text == message)
+            if (Message.Text == ExcelLibHelper.ReadData(1, "AvailabilityMessage"))
             {
                 
                 return true;

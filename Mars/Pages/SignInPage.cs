@@ -11,11 +11,11 @@ namespace Mars.Pages
         private readonly IWebDriver driver;
 
         //page factory design pattern
-        IWebElement SignIn => driver.FindElement(By.XPath("//*[@id='home']/div/div/div[1]/div/a"));
-        IWebElement EmailAddress => driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[1]/input"));
-        IWebElement Password => driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[2]/input"));
-        IWebElement LoginButton => driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div[4]"));
-        IWebElement SignOut => driver.FindElement(By.XPath("//*[@id='account-profile-section']/div/div[1]/div[2]/div/a[2]/button"));
+        IWebElement SignIn => driver.FindElement(By.XPath("//a[contains(text(),'Sign In')]"));
+        IWebElement EmailAddress => driver.FindElement(By.XPath("//input[@name='email']"));
+        IWebElement Password => driver.FindElement(By.XPath("//input[@name='password']"));
+        IWebElement LoginButton => driver.FindElement(By.XPath("//button[contains(text(),'Login')]"));
+        IWebElement SignOut => driver.FindElement(By.XPath("//button[contains(text(),'Sign Out')]"));
 
         //Create a Constructor
         public SignInPage(IWebDriver driver)
@@ -26,7 +26,7 @@ namespace Mars.Pages
 
         public void ClickSignIn()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='home']/div/div/div[1]/div/a", 500);
+            Wait.ElementExists(driver, "XPath", "//a[contains(text(),'Sign In')]", 50);
             //click sign in 
             SignIn.Click();
 
@@ -34,7 +34,7 @@ namespace Mars.Pages
 
         public void ValidateYouAreAtLoginPage()
         {
-            Wait.ElementExists(driver, "XPath", "/html/body/div[2]/div/div/div[1]/div/div[4]", 100);
+            Wait.ElementExists(driver, "XPath", "//button[contains(text(),'Login')]", 50);
             bool isLoginPage= LoginButton.Displayed;
             Assert.IsTrue(isLoginPage);
         }
@@ -43,7 +43,7 @@ namespace Mars.Pages
         {
             try
             {
-                Wait.ElementExists(driver, "XPath", "/html/body/div[2]/div/div/div[1]/div/div[1]/input", 200);
+                Wait.ElementExists(driver, "XPath", "//input[@name='email']", 100);
 
                 //Enter email address
                 EmailAddress.SendKeys(emailAddressValue);
@@ -69,7 +69,7 @@ namespace Mars.Pages
 
         public bool ValidateYouAreLoggedInSuccessfully()
         {
-            Wait.ElementExists(driver, "XPath", "//*[@id='account-profile-section']/div/div[1]/div[2]/div/a[2]/button", 1000);
+            Wait.ElementExists(driver, "XPath", "//button[contains(text(),'Sign Out')]", 100);
             return SignOut.Displayed;
         }
 
