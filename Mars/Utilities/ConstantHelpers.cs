@@ -1,8 +1,11 @@
 using System;
+
 namespace Mars.Utilities
 {
     public class ConstantHelpers
     {
+
+
         //Base Url
         public static string Url = "http://localhost:5000";
 

@@ -16,7 +16,7 @@ namespace Mars.Tests
         {
             commonMethods = new CommonMethods();
         }
-
+        /*
         [Test]
         [TestCaseSource(typeof(Driver), "BrowserToRunWith")]
         public void RegistrationTest(string browserName)
@@ -44,7 +44,7 @@ namespace Mars.Tests
             }
 
         }
-
+        */
         [Test]
         [TestCaseSource(typeof(Driver), "BrowserToRunWith")]
         public void LoginTest(string browserName)

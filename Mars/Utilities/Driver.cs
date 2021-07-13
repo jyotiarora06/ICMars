@@ -11,6 +11,7 @@ using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Safari;
 using OpenQA.Selenium.Firefox;
 using Mars.Config;
+using System.IO;
 
 namespace Mars.Utilities
 {
@@ -83,13 +84,19 @@ namespace Mars.Utilities
 
         }
 
-        [OneTimeTearDown]
-        public void FinalSteps()
+        [TearDown]
+        public void CloseBrowser()
         {
             // close the driver
             driver.Close();
             driver.Quit();
+        }
+
+        [OneTimeTearDown]
+        public void FinalSteps()
+        {
             extent.Flush();
+            File.Move("/Users/jyotimadan/Documents/Projects/CSharpProject/Mars.Selenium/ExtentReport/index.html", "/Users/jyotimadan/Documents/Projects/CSharpProject/Mars.Selenium/ExtentReport/ExtentReport_" + DateTime.Now.ToString("MMM-dd-yyyy hh-mm-ss") + ".html");
         }
 
 
